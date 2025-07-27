@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>สไลด์โชว์รูปแคปโน้ต</title>
+<style>
+    /* หิมะตก */
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: white;
+  z-index: 9999;
+  user-select: none;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+  body {
+    font-family: 'Kanit', sans-serif;
+    background: #fff8f0;
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  h1 {
+    margin: 20px 0;
+    color: #d2691e;
+  }
+
+  .slideshow-container {
+    width: 90%;
+    max-width: 600px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background: white;
+    position: relative;
+  }
+
+  .slides {
+    display: flex;
+    width: 100%;
+    transition: transform 1s ease;
+  }
+
+  .slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .slide img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+
+  .caption {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: 500;
+  }
+
+  /* ปุ่มเลื่อน */
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: #d2691e;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    line-height: 38px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .prev:hover, .next:hover {
+    background: #d2691e;
+    color: white;
+  }
+  .prev { left: 10px; }
+  .next { right: 10px; }
+</style>
+</head>
+<body>
+
+<h1>ความทรงจำในแคปโน้ต 💌</h1>
+
+<div class="slideshow-container">
+  <div class="slides" id="slides">
+    <div class="slide">
+      <img src="photo/note1.jpg" alt="แคปโน้ต 1" />
+      <div class="caption">ข้อความจากใจครั้งแรก 📝</div>
+    </div>
+    <div class="slide">
+      <img src="photo/note2.jpg" alt="แคปโน้ต 2" />
+      <div class="caption">คำพูดหวาน ๆ ที่ไม่ลืม 💕</div>
+    </div>
+    <div class="slide">
+      <img src="photo/note3.jpg" alt="แคปโน้ต 3" />
+      <div class="caption">โน้ตน่ารักที่ส่งมาให้กำลังใจ 😊</div>
+    </div>
+  </div>
+
+  <div class="prev" onclick="prevSlide()">&#10094;</div>
+  <div class="next" onclick="nextSlide()">&#10095;</div>
+</div>
+
+<script>
+  const slides = document.getElementById('slides');
+  const totalSlides = slides.children.length;
+  let currentIndex = 0;
+
+  function showSlide(index) {
+    if (index >= totalSlides) currentIndex = 0;
+    else if (index < 0) currentIndex = totalSlides - 1;
+    else currentIndex = index;
+
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  function nextSlide() {
+    showSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentIndex - 1);
+  }
+
+  // สไลด์อัตโนมัติทุก 4 วินาที
+  setInterval(() => {
+    nextSlide();
+  }, 10000);
+
+  // เริ่มแสดงสไลด์แรก
+  showSlide(currentIndex);
+</script>
+<script>
+  const numFlakes = 50;
+
+  for (let i = 0; i < numFlakes; i++) {
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
+    snowflake.textContent = "❄️"; // หรือใช้ "*" แทนถ้าต้องการสไตล์อื่น
+    snowflake.style.left = `${Math.random() * 100}%`;
+    snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+    snowflake.style.fontSize = `${Math.random() * 10 + 10}px`;
+    snowflake.style.opacity = Math.random();
+    snowflake.style.animationDelay = `${Math.random() * 10}s`;
+    document.body.appendChild(snowflake);
+  }
+</script>
+
+</body>
+</html>
